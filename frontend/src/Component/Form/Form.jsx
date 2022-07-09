@@ -30,7 +30,7 @@ export default function Form(props) {
         var xl = document.getElementById("fl").files;
 
         if (w === "" || s === "" || xl === "") {
-            alert("are mdrchod pura daal bsdk!!!!!!!");
+            alert("please enter the fields properly!!!!!!!");
             return false;
         } else {
             sheetUpload(xl).then(res => {

@@ -14,7 +14,7 @@ export default function Admin(props) {
     // var pass = document.getElementById("password").value;
 
     if (email === "" || pass === "") {
-      alert("madrchod thik se vrna nii ata behen ke take!!!!!!");
+      alert("please enter all the fields!!!!");
       return false;
     } else {
       const data = {
