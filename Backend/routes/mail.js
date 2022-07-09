@@ -6,8 +6,8 @@ const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "souravsahuwala18296@gmail.com",
-        pass: "sandip9002857685",
+        user: "fakebgmi.94@gmail.com",
+        pass: "lxbivwgutziduntv",
     },
     tls: {rejectUnauthorized: false}
 });
@@ -27,7 +27,7 @@ app.post('/',certificate.single('certificate'), (req, res) => {
     let cname=req.body.cname;
 
     let mailOptions = {
-        from: "souravsahuwala18296@gmail.com",
+        from: "fakebgmi.94@gmail.com",
         to: email,
         subject: "Your Certificate",
         text: cname,
@@ -37,10 +37,8 @@ app.post('/',certificate.single('certificate'), (req, res) => {
     transporter.sendMail(mailOptions, (err, data) => {
         if (err) {
             res.send(err);
-            console.log(err);
         } else {
             res.send(data);
-            console.log(data);
         }
     });
 });

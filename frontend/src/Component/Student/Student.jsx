@@ -4,24 +4,29 @@ import Navbar from "../Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 
 export default function Student(props) {
-  //console.log(props.certificateDataHandler("hiii"))
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
-  const checkNow = () => {
+  const checkNow = (e) => {
+    e.preventDefault();
     if (email === "") {
       alert("data not found!!!!!!");
       return false;
     } else {
-      let url = "http://localhost:4000/student/" + email;
+      // let url = "http://localhost:4000/student/" + email;
+      let url = "https://cg-bd.herokuapp.com/student/" + email;
       fetch(url)
         .then((res) => {
           return res.json();
         })
         .then((data) => {
-        //  console.log(data);
-          props.certificateDataHandler(data);
-          navigate("/preview");
+          if (data.success === 0) {
+              alert("No Certificate Found!!!!")
+          }else{
+              props.pageHandler(1);
+              props.certificateDataHandler(data);
+              navigate("/preview");
+          }
         });
     }
   };

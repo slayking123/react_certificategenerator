@@ -12,7 +12,8 @@ export default function Form(props) {
 
     const sheetUpload = async (xl) => {
         return new Promise((resolve, reject) => {
-            const url2 = "http://localhost:4000/excel/upload";
+            // const url2 = "http://localhost:4000/excel/upload";
+            const url2 = "https://cg-bd.herokuapp.com/excel/upload";
             const formdata = new FormData();
             formdata.append("worksheet", xl[0]);
             fetch(url2, {
@@ -47,17 +48,22 @@ export default function Form(props) {
                         },
                         body: JSON.stringify(data1),
                     };
-                    var url1 = "http://localhost:4000/excel/";
+                    // var url1 = "http://localhost:4000/excel/";
+                    var url1 = "https://cg-bd.herokuapp.com/excel/";
                     fetch(url1, options1).then(res => { return res.json() }).then((duplicatedata) => {
                         if (duplicatedata["NumberOfDuplicateData"] !== 0) {
                             alert("There are " + duplicatedata["NumberOfDuplicateData"] + " duplicate entry in your excel Sheet!!!");
-                            fetch("http://localhost:4000/preview/" + duplicatedata["transid"]).then(res => { return res.json() }).then(certificateData => {
+                            // fetch("http://localhost:4000/preview/" + duplicatedata["transid"]).then(res => { return res.json() }).then(certificateData => {
+                            fetch("https://cg-bd.herokuapp.com/preview/" + duplicatedata["transid"]).then(res => { return res.json() }).then(certificateData => {
+                                props.pageHandler(0);
                                 props.certificateDataHandler(certificateData);
                                 navigate("/preview");
                             })
                         }else{
                             // alert("There are " + duplicatedata["NumberOfDuplicateData"] + " duplicate entry in your excel Sheet!!!");
-                            fetch("http://localhost:4000/preview/" + duplicatedata["transid"]).then(res => { return res.json() }).then(certificateData => {
+                            // fetch("http://localhost:4000/preview/" + duplicatedata["transid"]).then(res => { return res.json() }).then(certificateData => {
+                            fetch("https://cg-bd.herokuapp.com/preview/" + duplicatedata["transid"]).then(res => { return res.json() }).then(certificateData => {
+                                props.pageHandler(0);
                                 props.certificateDataHandler(certificateData);
                                 navigate("/preview");
                             })

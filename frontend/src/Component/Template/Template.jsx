@@ -22,7 +22,8 @@ export default function Template(props) {
           <img
             key={item.id}
             className="certificateimg"
-            src={"http://localhost/day2/image.php?id=" + item.id}
+            // src={"http://localhost/day2/image.php?id=" + item.id}
+            src={"https://cg-php.herokuapp.com/image.php?id=" + item.id}
             alt={item.name}
             onClick={() => selectTemplate(item)}
           />

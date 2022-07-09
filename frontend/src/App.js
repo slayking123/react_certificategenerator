@@ -9,9 +9,14 @@ import Form from "./Component/Form/Form";
 import Preview from "./Component/Preview/Preview";
 
 function App() {
+  const [page, setPage] = useState(0)
   const [template, setTemplate] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState({});
   const [certificateData, setCertificateData] = useState([]);
+
+  const pageHandler = (data) => {
+    setPage(data)
+  }
   const templateHandler = (data) => {
     setTemplate(data)
   }
@@ -27,11 +32,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Admin templateHandler={templateHandler}/>} />
-          <Route path="/student" element={<Student certificateDataHandler={certificateDataHandler}/>}/>
-          <Route path="/auth" element={<Authenticator />} />
+          <Route path="/student" element={<Student certificateDataHandler={certificateDataHandler} pageHandler={pageHandler}/>}/>
+          <Route path="/auth" element={<Authenticator certificateDataHandler={certificateDataHandler} pageHandler={pageHandler}/>} />
           <Route path="/template" element={<Template data={template} selectedTemplateHandler={selectedTemplateHandler}/>} />
-          <Route path="/form" element={<Form selectedTemplate={selectedTemplate} certificateDataHandler={certificateDataHandler} />} />
-          <Route path="/preview" element={<Preview certificateData={certificateData}/>} />
+          <Route path="/form" element={<Form selectedTemplate={selectedTemplate} certificateDataHandler={certificateDataHandler}  pageHandler={pageHandler}/>} />
+          <Route path="/preview" element={<Preview page={page} certificateData={certificateData}/>} />
         </Routes>
       </Router>
     </div>

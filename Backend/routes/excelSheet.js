@@ -3,10 +3,9 @@ const app = express.Router();
 const sql = require("../Database/database")
 const xl = require('xlsx');
 const multer = require('multer');
-const res = require("express/lib/response");
 
 const storage = multer.diskStorage({
-    destination: "../excelsheet",
+    destination: "./excelsheet",
     filename: (function (req, res, cv) {
         return cv(null, res.originalname)
     })
@@ -111,7 +110,7 @@ app.post('/', function (req, res) {
     var worksheetname = req.body.worksheetname;
     var excelsheet = req.body.excelsheet;
 
-    var ptr = xl.readFile('../excelsheet/' + excelsheet);
+    var ptr = xl.readFile('./excelsheet/' + excelsheet);
     var worksheet = ptr.Sheets[worksheetname];
     var data = [];
     var headers = {};

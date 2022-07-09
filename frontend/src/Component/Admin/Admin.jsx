@@ -30,12 +30,14 @@ export default function Admin(props) {
         body: JSON.stringify(data),
       };
 
-      var url = "http://localhost:4000/admin";
+      // var url = "http://localhost:4000/admin";
+      var url = "https://cg-bd.herokuapp.com/admin";
 
       var res = await fetch(url, options);
       var f = await res.json();
       if(f.result){
-        fetch("http://localhost:4000/template/"+f["message"][0]["id"]).then(res=>{
+        // fetch("http://localhost:4000/template/"+f["message"][0]["id"]).then(res=>{
+        fetch("https://cg-bd.herokuapp.com/template/"+f["message"][0]["id"]).then(res=>{
           return res.json()
         }).then(data=>{
           if(data){

@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
 import Pdf from '../template.pdf';
 import { saveAs } from '@progress/kendo-file-saver';
 
 export default function Preview(props) {
-console.log(props)
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(props.certificateData.length === 0);
         if (props.certificateData.length === 0) {
-            // navigate("/")
+            navigate("/")
         }
     }, [navigate, props.certificateData.length]);
 
@@ -24,6 +22,8 @@ console.log(props)
         const pages = pdfDoc.getPages()
         const firstPage = pages[0]
         const { width, height } = firstPage.getSize()
+        console.log(width);
+        console.log(height);
 
         firstPage.drawText(name, {
             x: 60,
@@ -71,7 +71,8 @@ console.log(props)
     const mailCertificate = async () => {
         for (let i = 0; i < props.certificateData.length; i++) {
             var pdf = await generatePDF(props.certificateData[i]["studentname"], props.certificateData[i]["branch"], props.certificateData[i]["slno"], props.certificateData[i]["id"], true);
-            let url2 = 'http://localhost:4000/mail';
+            // let url2 = 'http://localhost:4000/mail';
+            let url2 = 'https://cg-bd.herokuapp.com/mail';
             let formdata = new FormData()
             formdata.append('email', props.certificateData[i]["studentemail"])
             formdata.append('cname', props.certificateData[i]["certificatename"])
@@ -91,16 +92,18 @@ console.log(props)
             <div id="preview">
                 {props.certificateData.map((item, i) => (
                     <div className="img" key={i}>
-                        <img src={"http://localhost/day2/image.php?id=" + item.id} alt={item.studentname} />
+                        {/* <img src={"http://localhost/day2/image.php?id=" + item.id} alt={item.studentname} /> */}
+                        <img src={"https://cg-php.herokuapp.com/image.php?id=" + item.id} alt={item.studentname} />
                         <h1 className="name">{item.studentname}</h1>
                         <h3 className="branch">{item.branch}</h3>
                     </div>
                 ))}
             </div>
-            <footer>
+            {console.log(props.page)}
+            {props.page === 0 || props.page === 1 ? <footer>
                 <button className="b1" onClick={downloadCertificate}>download</button>
-                <button className="b2" onClick={mailCertificate}>mail</button>
-            </footer>
+                {props.page === 0 ? <button className="b2" onClick={mailCertificate}>mail</button> : ""}
+            </footer> : ""}
         </div>
     )
 }
